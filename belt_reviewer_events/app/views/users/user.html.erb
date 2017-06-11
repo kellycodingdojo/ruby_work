@@ -1,0 +1,21 @@
+<p> Edit User</p>
+
+<form action="/user/<%= @user.id %>/update" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="hidden" name="_method" value="patch">
+	<p>First Name: <input type="text" name="user[first_name]"></p>
+	<p>Last Name: <input type="text" name="user[last_name]"></p>
+	<p>Location: <input type="text" name="user[location]"></p>
+	<p>Email: <input type="text" name="user[email]"></p>
+	State: <select name="user[state]" class="select">
+				<option value="CA">California</option>
+				<option value="MI">Michigan</option>
+				<option value="OH">BumkinVille</option>
+				<option value="FL">Florida</option>
+			</select>
+	<input type="submit" value="Update Records">
+</form>
+
+
+
+

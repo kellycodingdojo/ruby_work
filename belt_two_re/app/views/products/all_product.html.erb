@@ -1,0 +1,53 @@
+<style>
+  .stuff{
+    margin-left: 400px;
+    vertical-align: top;
+  }
+  th{
+    width: 250px;
+    border: 2px solid black;
+  }
+  td{
+    width: 250px;
+    border: 2px solid black;
+  }
+
+</style>
+  
+
+
+
+<p>Welcome, <%= @user.first_name%>!</p>
+
+<a href="/sessions/<%= current_user.id%>" data-method="DELETE">Logout</a>
+<a class="stuff" href="/dashboard/<%= current_user.id%>" >Back To The DashBoard</a>
+
+<br>
+<br>
+<br>
+<table>
+ 
+    <tr>
+      <td>Product</td>
+      <td>Seller</td>
+      <td>Date Posted</td>
+      <td>Amount</td>
+      <td>Action</td>
+      
+    </tr>
+  <% @products.each do |product| %>
+      <% if !product.sales.exists? %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.user.first_name %> <%= product.user.last_name %></td>
+        <td><%= product.created_at.strftime("%B %d, %Y") %></td>
+        <td>$<%= product.price %></td>
+        <% if product.user != current_user %>
+        <td><a href="/dashboard/buy/<%= product.id%>" data-method="POST">Buy</a></td>
+        <% end %>
+      </tr>
+      <% end %>
+    <% end %>
+    </tr>
+</table>
+

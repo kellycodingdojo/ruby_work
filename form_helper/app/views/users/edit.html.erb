@@ -1,0 +1,7 @@
+<h4>Edit Your Profile</h4>
+
+<%= render "shared/form" %>
+
+<%= content_for :title do %>
+	<%= @user.first_name %> <%= @user.last_name %>
+<% end %>

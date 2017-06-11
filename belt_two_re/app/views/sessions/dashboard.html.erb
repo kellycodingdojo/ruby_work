@@ -1,0 +1,124 @@
+<style>
+	th{
+		width: 250px;
+		border: 2px solid black;
+	}
+	td{
+		width: 250px;
+		border: 2px solid black;
+	}
+</style>
+
+<p>Welcome, <%= @user.first_name%>!</p>
+<a href="/sessions/<%= @user.id %>" data-method="DELETE">Logout</a>
+<a href="/all_product/<%= @user.id%> ">Go to All Products</a>
+
+
+
+<form action="/sell/<%= @user.id %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>Name:</p>
+  <input type="text" name="product[name]" id="name" placeholder="">
+  <p>Amount</p>
+  <input type="number" name="product[price]" id="price" placeholder="">
+  <input type="submit" name="sell" value="Sell">
+</form>
+
+
+       <br>
+       <br>
+
+	<% if flash[:errors] %>
+	<% flash[:errors].each do |e| %>
+		<p><%= e %></p>
+	<% end %>
+<% end %>
+
+<table>
+ <p>Stuff that I am selling. </p>
+    <tr>
+      <td>Product</td>
+      <td>Date Posted</td>
+      <td>Amount</td>
+      <td>Action</td>
+      <td>Person posted</td>
+      
+    </tr>
+    <% @product.each do |stuff| %>
+    <% if !stuff.sales.exists? %>
+    <tr>
+		<td> <%= stuff.name %> </td>
+		<td> <%= stuff.created_at.strftime("%B %d, %Y") %> </td>
+		<td> <%= stuff.price %> </td>
+		<td> 
+		<form action="/destroy/<%= stuff.id %>" method="post">
+		      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		      <input type="hidden" name="_method" value="delete">
+		      <input type="submit" name="delete" value="Delete Product">
+    	</form>
+    	<td><%= stuff.user.first_name %></td>
+        </td>	
+	<% end %>
+	<% end %>
+    </tr>
+</table>
+
+<br>
+<br>
+<br>
+
+<table>
+ <p>Stuff that I have bought</p>
+    <tr>
+      <td>Product</td>
+      <td>Date Posted</td>
+      <td>Amount</td>
+      <td>sale ID</td>
+      <td>Seller</td>
+      
+    </tr>
+    <% @user.sales.each do |sale| %>
+    <% if sale.user = current_user %>
+    <tr>
+		<td> <%= sale.product.name %> </td>
+		<td> <%= sale.product.created_at.strftime("%B %d, %Y") %> </td>
+		<td> <%= sale.product.price %> </td>
+		<td> <%= sale.id %> </td>
+		<td> <%= sale.product.user.first_name %> </td>	
+	<% end %>
+	<% end %>
+    </tr>
+</table>
+ <h4>Total: $<%= @purchase_sum %></h4>
+
+<br>
+<br>
+
+<table>
+ <p>Stuff that I have Sold </p>
+    <tr>
+      <td>Product</td>
+      <td>Date Posted</td>
+      <td>Amount</td>
+      <td>sale ID</td>
+      <td>Buyer</td>
+      
+    </tr>
+    <% @sales.each do |sale| %>
+   
+    <tr>
+		<td> <%= sale.product.name %> </td>
+		<td> <%= sale.product.created_at.strftime("%B %d, %Y") %> </td>
+		<td> <%= sale.product.price %> </td>
+		<td> <%= sale.id %> </td>
+		<td> <%= sale.user.first_name %> </td>	
+	
+	<% end %>
+	
+
+    </tr>
+</table>
+	<h4>Total: $<%= @sales_sum %></h4>
+
+
+

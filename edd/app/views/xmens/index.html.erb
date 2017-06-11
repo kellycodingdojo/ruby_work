@@ -1,0 +1,9 @@
+<h1>List of all X-Men</h1>
+
+<ul>
+	<% @xmens.each do |x| %>
+		<li><a href="/xmens/<%= x.id %>"><%= x.name %></a> | <%= x.power %></li>
+	<% end %>
+</ul>
+
+<a href="/xmens/new">Create new Xman</a>

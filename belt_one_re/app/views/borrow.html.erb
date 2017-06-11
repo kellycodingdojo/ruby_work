@@ -1,0 +1,30 @@
+<style>
+	th{
+		width: 120px;
+		border: 2px solid black;
+	}
+	td{
+		width: 120px;
+		border: 2px solid black;
+	}
+	log{
+		margin-left: 400px;
+	}
+</style>
+<a class="log" href="/destroy/<%= session[:user_id] %>" data-method="DELETE"> logout</a> 
+
+<p>Name, <%= @user.first_name %> </p>
+<p>AMount Needed $<%= @user.money %> </p>
+
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Amount Lent</th>
+	</tr>
+
+</table>
+
+
+

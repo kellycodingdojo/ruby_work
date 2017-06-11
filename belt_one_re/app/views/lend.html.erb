@@ -1,0 +1,71 @@
+<style>
+	th{
+		width: 120px;
+		border: 2px solid black;
+		margin: 5px;
+	}
+	td{
+		width: 120px;
+		border: 2px solid black;
+	}
+	.log{
+		margin-left: 400px;
+	}
+	input[type=number]{
+	    width: 80px;
+	    display: inline-block;
+	} 
+	.sp{
+		display: inline-block;
+	}
+	.action{
+		width: 200px;
+	}
+
+</style>
+
+<a class="log" href="/destroy/<%= session[:user_id] %>" data-method="DELETE"> logout</a> 
+
+<p>Name, <%= @user.first_name %> </p>
+<p>Account Balance $<%= @user.money %> </p>
+
+
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Money Needed For</th>
+		<th>Description</th>
+		<th>Amount Needed</th>
+		<th>Amount Raised</th>
+		<th class="action">Action</th>
+</tr>
+	<% @bums.each do |give_me| %>
+		<tr>
+			<td><%= give_me.first_name %></td>
+			<td><%= give_me.need %></td>
+			<td><%= give_me.description %></td>
+			<td><%= give_me.money %></td>
+			<td><%= give_me.raised %></td>
+			
+			<% if @user.money > 0  %>
+			<td><form action="/lend_money" method="POST">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+				<input class="sp" type="number" name="lending[money]" maxlength="4" size="4">
+				<input type="submit" value="LEND">
+			</form>
+			</td>
+			<% end %>
+
+
+
+
+
+		</tr>
+	<% end %>
+</table>
+
+
+<!-- rails generate model Lender first_name:string last_name:string email:string password:digest money:integer -->
+
+<!-- rails generate model Borrower first_name:string last_name:string email:string password:digest need:string description:string money:integer -->

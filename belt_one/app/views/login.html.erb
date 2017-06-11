@@ -1,0 +1,10 @@
+<h3>Existing User Login</h3>
+
+
+<form action="/logging" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>Email: <input type="text" name="user[email]"></p>
+	<p>Password: <input type="text" name="user[password]"></p>
+	<input type="submit" value="Login">
+	<a  href="/register"> Already a member??</a> 
+</form>

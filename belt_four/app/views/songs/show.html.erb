@@ -1,0 +1,39 @@
+<style>
+	th{
+		width: 250px;
+		border: 2px solid black;
+	}
+	td{
+		width: 250px;
+		border: 2px solid black;
+	}
+</style>
+
+<a href="/sessions/<%= @my_user.id %>" data-method="DELETE">Logout</a>
+<a class="stuff" href="/songs" >Back To The DashBoard</a>
+
+
+<table>
+
+ <p>Others who added <%= @song.artist %> - <%= @song.title %></p>
+    <tr>
+      <td>User Name</td>
+      <td>Times Added</td>
+      <td>ID</td>
+    </tr>
+       <% @listeners.each do |play| %>
+       
+        <tr>
+          <td><a href="/users/<%= play.id %>"><%= play.first_name %> </a> </td>
+          <td><%= play.count  %>  </td>  
+          <td><%= play.id  %>  </td>  
+          
+         	
+        </tr>
+      
+      <% end %>
+    
+</table>
+  
+
+   

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LendersBorrowers</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style type="text/css">
+  	div{
+  		display:inline-block;
+  		width:40vw;
+  		margin:2% 3%;
+  		vertical-align: top;
+  		padding:1vw;
+  	}
+  </style>
+</head>
+<body>
+<% if current_user %>
+    <a href="/logout">Logout</a>
+<% end %>
+
+<% if flash[:errors]%>
+  <% flash[:errors].each do |e| %>
+    <p><%= e %></p>
+    <% end %>
+<% end %>
+<%= yield %>
+
+</body>
+</html>

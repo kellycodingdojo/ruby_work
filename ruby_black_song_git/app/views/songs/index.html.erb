@@ -1,0 +1,52 @@
+<h1>Hello <%=session[:name]%>!</h1>
+<h2><%=session[:user_id]%></h2>
+<form action='/sessions/<%=session[:user_id]%>' method='post'>
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Log Out">
+</form>
+<p>All the songs in our hub</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Artist</th>
+			<th>Title</th>
+			<th>No. of times song <br> has been added</th>
+			<th>Add to PlayList</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr <%@songs.each do |song|%>>
+			<td><%=song.artist%></td>
+			<td> <a href="/songs/<%=song.id%>"><%=song.title%></a> </td>
+			<td><%=song.counts.count%></td>
+			<td><form action='/counts' method='post'>
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type="hidden" name="song_id" value="<%=song.id%>">
+			<input type="hidden" name="user_id" value="<%=session[:id]%>">
+			<input type="submit" value="Add">
+				
+			</form></td>
+		</tr>
+		<%end%>
+	</tbody>
+</table>
+
+<h1>Add a song</h1>
+<form action='/songs' method='post'>
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<label>Title <input type="text" name="song[title]"></label><br><br>
+	<label>Artist <input type="text" name="song[artist]"></label><br><br>
+	
+	<input type="hidden" name="user_id" value="<%=session[:user_id]%>">
+	
+
+	<input type="submit" value="Add Song">
+</form>
+
+
+<%if flash[:errors]%>
+	<p><%=flash[:errors]%></p> 
+<% end %>
+

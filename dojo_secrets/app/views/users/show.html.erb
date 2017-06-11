@@ -1,0 +1,25 @@
+<h1><%= @user.name%></h1>
+<a href="/users/<%= @user.id%>/edit">Edit Profile</a>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |e| %>
+    <%= e %>
+  <% end %>
+<% end %>
+<form action="/secrets" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>New Secret:</p>
+  <textarea name="secret[content]" id="Content" rows="8" cols="80"></textarea>
+  <input type="submit" name="Create Secret" value="Create Secret">
+</form>
+<% @secrets.reverse.each do |secret| %>
+  <p><%= secret.content %></p>
+  <p><%= secret.created_at %></p>
+  <p><%= secret.likes.count %> likes</p>
+  <% if current_user == secret.user %>
+    <form action="/secrets/<%= secret.id %>" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" name="Delete Secret" value="Delete Secret">
+    </form>
+  <% end %>
+<% end %>

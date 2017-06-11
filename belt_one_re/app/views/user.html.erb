@@ -1,0 +1,51 @@
+<p>Lenders & Borrowers Registration Page </p>
+
+<style>
+	div{
+		vertical-align: top;
+		display: inline-block;
+	}
+	form{
+		display: inline-block;
+	}
+	.borrow{
+		margin-left: 50px;
+	}
+
+
+</style>
+
+
+<div>
+<h3>Register as a Lender</h3>
+<p> <%= flash[:errors] %> </p>
+<form action="/register/lender" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>First Name: <input type="text" name="lend[first_name]"></p>
+	<p>Last Name: <input type="text" name="lend[last_name]"></p>
+	<p>Email: <input type="text" name="lend[email]"></p>
+	<p>Password: <input type="text" name="lend[password]"></p>
+	<p>Money: <input type="number" name="lend[money]"></p>
+	<input type="submit" value="Register">
+	<a  href="/login"> Already a member??</a> 
+</form>
+
+</div>
+
+
+
+<div class="borrow">
+<h3>Register as a Borrower</h3>
+<form action="/register/borrower" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>First Name: <input type="text" name="borrow[first_name]"></p>
+	<p>Last Name: <input type="text" name="borrow[last_name]"></p>
+	<p>Email: <input type="text" name="borrow[email]"></p>
+	<p>Password: <input type="text" name="borrow[password]"></p>
+	<p>Need Money For: <input type="text" name="borrow[need]"></p>
+	Tell us about it:<p> <textarea name="borrow[description]" rows="4" cols="50"> Description</textarea></p>
+	<p>Money: <input type="number" name="borrow[money]"></p>
+	<input type="submit" value="Register">
+	<a  href="/login"> Already a member??</a> 
+</form>
+</div>

@@ -1,0 +1,77 @@
+<style>
+	tr{
+		width: 120px;
+		border: 2px solid black;
+	}
+	td{
+		width: 120px;
+		border: 2px solid black;
+	}
+	h1{
+		color: blue;
+	}
+	h4{
+		margin-left: 400px;
+	}
+	a{
+		margin-left: 15px;
+	}
+</style>
+
+<h4>
+	<a href="/dash" > Return to Dashboard</a>
+	<a href="/destroy/<%= session[:user_id] %>" data-method="DELETE"> logout</a> 
+ </h4>
+
+
+
+<h1> <%= @event.name %> </h1>
+
+<p>Host: <%= @event.user.first_name %> </p>
+
+<p>Date: <%= @event.date %> </p>
+<p>Location: <%= @event.location %> <%= @event.state %> </p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>City</th>
+		<th>State</th>
+		
+	</tr>
+<p> Number of people who have joined this event: <%= @event.users_joined.count %> </p>
+
+<% @event.users_joined.each do |event| %>   
+		<tr>
+			<td><%= event.first_name %></td>
+			<td><%= event.location %></td>
+			<td><%= event.state %></td>
+		</tr>
+	<% end %>
+</table>
+
+<br>
+
+<p> Add to the event Discussion:</p>
+<table>
+<% @comment.each do |comment| %>   
+		<tr>
+			<td><%= comment.user.first_name %> Says:</td>
+
+			<td><%= comment.comment %></td>
+
+			
+		</tr>
+	<% end %>
+</table>
+
+
+
+<p>Add Comment: </p>
+	<form action="/comment" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<input type="hidden" value="<%= @event.id %>" name="comment[event_id]">
+		 <textarea name="comment[comment]" rows="4" cols="50"> Enter text here...</textarea>
+	  	<input type="submit">
+	</form>
+

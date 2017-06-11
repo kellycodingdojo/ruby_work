@@ -1,0 +1,31 @@
+<a href="/songs">Dashboard</a>
+
+
+<form action='/sessions/<%=session[:user_id]%>' method='post'>
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Log Out">
+</form>
+
+
+<p>Others who added <%=@song.artist%> - <%=@song.title%></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Times added</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+		<tr <%@users.each do |user|%>>
+		<% unless Count.where(user_id: user.id, song_id: @song.id).count == 0 %>
+			<td> <a href="/users/<%=user.id%>"><%=user.first_name%></a> </td>
+			<td><%=Count.where(user_id: user.id, song_id: @song.id).count%></td>
+		<%end%>
+		</tr>
+		
+		<%end%>
+	</tbody>
+</table>

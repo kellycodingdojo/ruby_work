@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NinjaGold</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <style type="text/css">
+  	form{
+  		display: inline-block;
+  		border: 1px solid black;
+  		padding:5vw;
+  	}
+    #activities{
+      border:1px solid black;
+      display: inline-block;
+      width:50vw;
+      margin-top:5vh;
+    }
+  </style>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

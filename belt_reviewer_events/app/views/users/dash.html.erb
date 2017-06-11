@@ -1,0 +1,173 @@
+<style>
+	th{
+		width: 120px;
+		border: 2px solid black;
+	}
+	td{
+		width: 120px;
+		border: 2px solid black;
+	}
+	.blue{
+		color: blue;
+	}
+	.green{
+		color: green;
+	}
+	.red{
+		color: green;
+	}
+</style>
+<h4>
+	<a href="/user/<%= @user.id %>"  > Edit my Profile</a>
+	<a href="/destroy/<%= session[:user_id] %>" data-method="DELETE"> logout</a> 
+ </h4>
+
+<p>Welcome, <%= @user.first_name %> </p>
+
+<p class="blue"> Hear are some events in your state</p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Date</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Host</th>
+		<th>Action/Status</th>
+	</tr>
+
+	<% @local_events.each do |event| %>
+		<tr>
+			<td><a href="/events/<%= event.id %>"><%= event.name %></a></td> 
+			<td><%= event.date %></td>
+			<td><%= event.location %></td>
+			<td><%= event.state %></td>
+			<td><%= event.user.first_name %></td>
+			<% if event.user != current_user && !event.users_joined.include?(current_user) %>
+			<td><a href="/events/join/<%= event.id %>" data-method="POST">Join</a> </td>
+			<% end %>
+
+			<% if event.user == current_user %>
+			<td><a href="/events/destroy/<%= event.id %>" data-method="DELETE">Delete</a> </td>
+			<% end %>
+
+			<% if event.users_joined.include?(current_user) %>
+			<td>joining: <a href="/join/cancel/<%= event.id %>" data-method="DELETE">Cancel </a> </td>
+			<% end %>
+
+		</tr>
+	<% end %>
+</table>
+
+<br>
+<hr>
+
+
+<table>
+<p class="green"> Hear are some events in other states</p>
+	<tr>
+		<th>Name</th>
+		<th>Date</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Host</th>
+		<th>Action</th>
+	</tr>
+
+	<% @events.each do |event| %>
+		<tr>
+			<td><%= event.name %></td>
+			<td><%= event.date %></td>
+			<td><%= event.location %></td>
+			<td><%= event.state %></td>
+			<td><%= event.user.first_name %></td>
+			<% if event.user != current_user && !event.users_joined.include?(current_user) %>
+			<td><a href="/events/join/<%= event.id %>" data-method="POST">Join</a> </td>
+			<% end %>
+			
+			<% if event.users_joined.include?(current_user) %>
+			<td>Cannot cancel :(  </td>
+			<% end %>
+
+		</tr>
+	<% end %>
+</table>
+
+<br>
+<hr>
+
+<p> <%= flash[:errors] %> </p>
+<p>Add a Event</p>
+<form action="/create_event" method="POST">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+	<p>Name: <input type="text" name="event[name]"></p>
+	<p>Date: <input type="date" name="event[date]"></p>
+	<p>Location: <input type="text" name="event[location]">
+	  <select name="event[state]" class="select">
+				<option value="CA">California</option>
+				<option value="MI">Michigan</option>
+				<option value="OH">BumkinVille</option>
+				<option value="FL">Florida</option>
+			</select>
+	</p>
+	<input type="submit" value="Add Event">
+</form>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<table>
+<p class="red"> all users</p>
+	<tr>
+		<th>First</th>
+		<th>Last</th>
+		<th>Email</th>
+		<th>City</th>
+		<th>State</th>
+		<th>User_id</th>
+		
+	</tr>
+
+	<% @all_users.each do |user| %>
+		<tr>
+			<td><%= user.first_name %></td>
+			<td><%= user.last_name %></td>
+			<td><%= user.email %></td>
+			<td><%= user.location %></td>
+			<td><%= user.state %></td>
+			<td><%= user.id %></td>
+		
+			
+		</tr>
+	<% end %>
+</table>
+
+<table>
+<p class="red"> all Joins</p>
+	<tr>
+		<th>Join ID</th>
+		<th> Event ID</th>
+		<th> Event Name</th>
+		<th>User ID</th>
+		<th>User Name</th>
+		
+		
+	</tr>
+
+	<% @jejejejejeje.each do |join| %>
+		<tr>
+			<td><%= join.id %></td>
+			<td><%= join.event_id %></td>
+			<td><%= join.event.name %></td>
+			<td><%= join.user_id %></td>
+			<td><%= join.user.first_name %></td>
+			
+		
+			
+		</tr>
+	<% end %>
+</table>

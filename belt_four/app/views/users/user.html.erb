@@ -1,0 +1,25 @@
+<style>
+	td{
+		padding: 10px;
+	}
+</style>
+
+<a class="stuff" href="/songs" >Back To The DashBoard</a> <br>
+<a href="/sessions/<%= @goober.id %>" data-method="DELETE">Logout</a>
+
+<table>
+
+ <p> <%= @goober.first_name %> <%= @goober.last_name %>'s playlist  </p>
+    <tr>
+      	<td>Artist</td>
+      	<td>Title</td>
+      	<td>Number of time song has been added</td>
+    </tr>
+    <% @songs.each do |sing| %>
+		<tr>
+		  	<td> <%= sing.artist %> </td>
+		   	<td> <%= sing.title %> </td>
+		    <td> <%= sing.total %> </td>	
+		</tr>
+    <% end %>
+</table>

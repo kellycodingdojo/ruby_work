@@ -1,0 +1,69 @@
+<style>
+	th{
+		width: 250px;
+		border: 2px solid black;
+	}
+	td{
+		width: 250px;
+		border: 2px solid black;
+	}
+</style>
+<a href="/sessions/<%= @user.id %>" data-method="DELETE">Logout</a>
+
+<p>Welcome, <%= @user.first_name%>!</p>
+
+
+<table>
+
+ <p>Songs in our hub: </p>
+    <tr>
+      <td>Artist</td>
+      <td>Title</td>
+      <td>Number of time song has been added</td>
+      <td>Add to playlist</td> 
+    </tr>
+    <% @song.each do |sing| %>
+    <tr>
+    	<td> <%= sing.artist %> </td>
+    	<td><a href= "/songs/<%= sing.id %>" data-method="POST"> <%= sing.title %> </a>  </td>
+    	<td><%= sing.playlists.count %> </td>
+    	<td><form action="/add_list/<%= sing.id %>" method="post">
+		      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		      <input type="hidden" name="list[song_id]" value="<%= sing.id%>">
+		      <input type="submit" name="ADD" value="Add">
+		    </form>
+	    </td>
+    	<% end %>
+    </tr>
+    
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form action="/add_song" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p>Add a Song:</p>
+  Title<textarea name="song[title]" id="title" rows="2" cols="30"></textarea>
+  Artist<textarea name="song[artist]" id="artist" rows="2" cols="30"></textarea>
+  <input type="submit" name="Add Song" value="Add Song">
+</form>
+
+
+
+

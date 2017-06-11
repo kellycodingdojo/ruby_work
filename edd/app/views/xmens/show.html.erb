@@ -1,0 +1,8 @@
+<h1>Profile of <%= @xman.name %></h1>
+
+<ul>
+	<li>Name: <%= @xman.name %></li>
+	<li>Power: <%= @xman.power %></li>
+</ul>
+
+<a href="/xmens/<%= @xman.id %>/edit">Edit</a> | <a href="/xmens/<%= @xman.id %>" data-confirm="Are you sure?" data-method="delete">Delete</a>
